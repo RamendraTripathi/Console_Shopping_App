@@ -1,3 +1,11 @@
+lib/secrets.dart
+/windows/
+/macos/
+/ios/
+/linux/
+/build/
+
+
 # Miscellaneous
 *.class
 *.log
@@ -31,7 +39,10 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+.build/
+**/web/.dart_tool/
+**/web/build/
+pubspec.lock
 
 # Symbolication related
 app.*.symbols
@@ -43,3 +54,21 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# iOS related (Flutter & CocoaPods)
+**/ios/Flutter/.generated/
+/ios/Pods/
+/ios/Podfile.lock
+/ios/Runner.xcworkspace/
+
+# Android related
+/android/.gradle/
+/android/build/
+/android/app/build/
+/android/app/src/debug/
+/android/app/src/profile/
+
+# Web related (Flutter Web build artifacts)
+**/web/.dart_tool/
+/web/build/
+
