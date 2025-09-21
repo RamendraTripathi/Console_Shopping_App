@@ -4,6 +4,7 @@ lib/secrets.dart
 /ios/
 /linux/
 /build/
+/cmak
 
 
 # Miscellaneous
