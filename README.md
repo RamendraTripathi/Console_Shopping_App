@@ -1,4 +1,4 @@
-# shop_app_flutter
+# Flutter Gaming Shop App
 
 Practicing creating apps with Flutter.
 
