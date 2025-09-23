@@ -22,6 +22,8 @@ class _HomePageState extends State<HomePage> {
   int selectedFilter = 0;
   String selectedFilterName = 'All';
 
+  int _column = 1;
+
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -73,100 +75,168 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filters.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        child: Chip(
-                          elevation: 10,
-                          backgroundColor:
-                              selectedFilter == index
-                                  ? const Color.fromARGB(
-                                    255,
-                                    252,
-                                    224,
-                                    179,
-                                  )
-                                  : const Color.fromARGB(
-                                    255,
-                                    238,
-                                    240,
-                                    243,
-                                  ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(20),
-                          ),
-                          side: BorderSide(
-                            color: const Color.fromARGB(
-                              255,
-                              238,
-                              240,
-                              243,
+              Row(
+                children: [
+                  Flexible(
+                    flex: 7,
+                    child: SizedBox(
+                      height: 80,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: filters.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(
+                              8.0,
                             ),
-                          ),
-                          label: Text(filters[index]),
-                          labelStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          labelPadding:
-                              EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 10,
+                            child: GestureDetector(
+                              child: Chip(
+                                elevation: 10,
+                                backgroundColor:
+                                    selectedFilter == index
+                                        ? const Color.fromARGB(
+                                          255,
+                                          252,
+                                          224,
+                                          179,
+                                        )
+                                        : const Color.fromARGB(
+                                          255,
+                                          238,
+                                          240,
+                                          243,
+                                        ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                        10,
+                                      ),
+                                ),
+                                side: BorderSide(
+                                  color:
+                                      const Color.fromARGB(
+                                        255,
+                                        238,
+                                        240,
+                                        243,
+                                      ),
+                                ),
+                                label: Text(filters[index]),
+                                labelStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight:
+                                      FontWeight.bold,
+                                ),
+                                labelPadding:
+                                    EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 10,
+                                    ),
                               ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            selectedFilter = index;
-                            selectedFilterName =
-                                filters[index];
-                          });
+                              onTap: () {
+                                setState(() {
+                                  selectedFilter = index;
+                                  selectedFilterName =
+                                      filters[index];
+                                });
+                              },
+                            ),
+                          );
                         },
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 12.0,
+                    ),
+                    child: Flexible(
+                      flex: 1,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(10),
+                          color: const Color.fromARGB(
+                            255,
+                            216,
+                            253,
+                            242,
+                          ),
+                        ),
+
+                        child: PopupMenuButton<int>(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10),
+                          ),
+                          color: const Color.fromARGB(
+                            255,
+                            216,
+                            253,
+                            242,
+                          ),
+                          icon: Icon(Icons.filter_alt),
+                          onSelected: (value) {
+                            setState(() {
+                              _column = value;
+                            });
+                          },
+                          itemBuilder:
+                              (context) => [
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: Text(
+                                    'List View',
+                                    style: TextStyle(
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 2,
+                                  child: Text(
+                                    'Grid View',
+                                    style: TextStyle(
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              // Card(
-              //   color: const Color.fromARGB(
-              //     255,
-              //     219,
-              //     220,
-              //     223,
-              //   ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(18.0),
-              //     child: Column(
-              //       children: [
-              //         Text(product[0]['title'].toString()),
-              //         Text(product[0]['price'].toString()),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth:
                       MediaQuery.of(context).size.width -
                       50,
                 ),
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            _column == 1 ? 1 : 2,
+                        childAspectRatio:
+                            _column == 1 ? 0.67 : 0.55,
+                      ),
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: getFilteredProducts().length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                        horizontal: 5,
                       ),
 
                       child: ProductCard(
+                        columnCount: _column,
                         product:
                             getFilteredProducts()[index],
                         backgroundColorIndex:

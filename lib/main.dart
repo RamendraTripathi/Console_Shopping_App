@@ -38,6 +38,7 @@ class MyShoppingApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
+
           bodySmall: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

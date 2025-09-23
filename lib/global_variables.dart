@@ -73,7 +73,7 @@ final product = [
       "DualSense Wireless Controller – White",
     ],
     'price': 69.99,
-    'disk size': <String>['4G', '5G'],
+    'disk size': <String>['2.4 GHz', '5 GHz'],
     'imgUrl': 'assets/images/ps5_controller.jpg',
   },
   {
@@ -100,7 +100,7 @@ final product = [
       "Xbox Wireless Controller – Standard",
     ],
     'price': 59.99,
-    'disk size': <String>['4G', '5G'],
+    'disk size': <String>['2.4 GHz', '5 GHz'],
     'imgUrl': 'assets/images/xboxcontrollernormal.png',
   },
   {
@@ -115,7 +115,7 @@ final product = [
       "Swappable Components",
     ],
     'price': 179.99,
-    'disk size': <String>['4G', '5G'],
+    'disk size': <String>['2.4 GHz', '5 GHz'],
     'imgUrl': 'assets/images/xboxelitecontroller.png',
   },
   {

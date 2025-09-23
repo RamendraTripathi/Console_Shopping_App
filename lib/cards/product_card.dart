@@ -9,11 +9,13 @@ class ProductCard extends StatefulWidget {
   final String productDescription;
   final String imageURL;
   final bool backgroundColorIndex;
+  final int columnCount;
 
   ProductCard({
     super.key,
     required this.product,
     required this.backgroundColorIndex,
+    required this.columnCount,
   }) : productName = product['title'] as String,
        productSize = product['disk size'] as List<String>,
        productPrice = product['price'] as double,
@@ -67,6 +69,7 @@ class _ProductCardState extends State<ProductCard> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.productName,
@@ -74,51 +77,68 @@ class _ProductCardState extends State<ProductCard> {
                       Theme.of(
                         context,
                       ).textTheme.titleMedium,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 15),
+                widget.columnCount == 1
+                    ? const SizedBox(height: 15)
+                    : SizedBox(),
                 Image(
                   image: AssetImage(widget.imageURL),
-                  height: 275,
+                  height:
+                      widget.columnCount == 1 ? 275 : 150,
                 ),
-                const SizedBox(height: 15),
-                Wrap(
-                  spacing: 10,
-                  children: [
-                    for (
-                      int i = 0;
-                      i < widget.productSize.length;
-                      i++
+                widget.columnCount == 1
+                    ? Column(
+                      children: [
+                        const SizedBox(height: 15),
+                        Wrap(
+                          spacing: 10,
+                          children: [
+                            for (
+                              int i = 0;
+                              i < widget.productSize.length;
+                              i++
+                            )
+                              ChoiceChip(
+                                label: Text(
+                                  widget.productSize[i],
+                                ),
+                                side: BorderSide.none,
+                                backgroundColor:
+                                    const Color.fromARGB(
+                                      255,
+                                      238,
+                                      240,
+                                      243,
+                                    ),
+                                selected: selectedSize == i,
+                                onSelected: (selected) {
+                                  setState(() {
+                                    selectedSize = i;
+                                  });
+                                },
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          '\$ ${widget.productPrice}',
+                          style:
+                              Theme.of(
+                                context,
+                              ).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 15),
+                      ],
                     )
-                      ChoiceChip(
-                        label: Text(widget.productSize[i]),
-                        side: BorderSide.none,
-                        backgroundColor:
-                            const Color.fromARGB(
-                              255,
-                              238,
-                              240,
-                              243,
-                            ),
-                        selected: selectedSize == i,
-                        onSelected: (selected) {
-                          setState(() {
-                            selectedSize = i;
-                          });
-                        },
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  '\$ ${widget.productPrice}',
-                  style:
-                      Theme.of(context).textTheme.bodySmall,
-                ),
-                const SizedBox(height: 15),
+                    : Padding(padding: EdgeInsets.all(0)),
                 TextButton(
                   style: ButtonStyle(
                     maximumSize: WidgetStateProperty.all(
-                      Size(140, 40),
+                      widget.columnCount == 1
+                          ? Size(140, 40)
+                          : Size(100, 40),
                     ),
                     backgroundColor:
                         WidgetStateProperty.all(
@@ -131,7 +151,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                   ),
                   onPressed: () {
-                    print('Button Pressed!');
+                    print('Item added to cart!');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(0),
@@ -142,6 +162,10 @@ class _ProductCardState extends State<ProductCard> {
                         Text(
                           'Add to Cart',
                           style: TextStyle(
+                            fontSize:
+                                widget.columnCount == 1
+                                    ? 15
+                                    : 11,
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context)
@@ -151,6 +175,10 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         Icon(
                           Icons.shopping_cart,
+                          size:
+                              widget.columnCount == 1
+                                  ? 15
+                                  : 12,
                           color:
                               Theme.of(context)
                                   .colorScheme
