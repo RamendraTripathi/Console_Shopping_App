@@ -27,7 +27,7 @@ class MyShoppingApp extends StatelessWidget {
         ),
         fontFamily: 'Lato',
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
+          seedColor: Colors.green,
         ),
         textTheme: TextTheme(
           titleLarge: TextStyle(
@@ -37,6 +37,10 @@ class MyShoppingApp extends StatelessWidget {
           titleMedium: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
+          ),
+          titleSmall: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
           ),
 
           bodySmall: TextStyle(fontWeight: FontWeight.bold),

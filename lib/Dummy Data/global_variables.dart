@@ -179,14 +179,34 @@ final product = [
   },
 ];
 
-final cart = [
+final List<Map<String, dynamic>> cart = [
   {
-    'id': '2',
+    'id': '0',
     'company': 'Microsoft',
-    'title': 'Xbox Series X Galaxy Black',
-    'price': 729.99,
+    'title': 'Xbox Series X Carbon Black',
+    'description':
+        'The Xbox Series X in Carbon Black delivers ultimate gaming performance with smooth 4K visuals and ultra-fast load times. Its striking black design exudes sophistication, making it a perfect addition to your gaming collection.',
+    'includes': [
+      "Xbox Series X – 1TB Carbon Black",
+      "Xbox Wireless Controller – Carbon Black",
+    ],
+    'price': 599.99,
     'disk size': ['1TB', '1TB', '2TB'],
-    'imgUrl':
-        'assets/images/xbox_series_x_galaxy_black.png',
+    'imgUrl': 'assets/images/carbon_black.png',
+  },
+  {
+    'id': '11',
+    'company': 'Asus',
+    'title': 'Asus ROG Ally',
+    'description':
+        'The Asus ROG Ally is a handheld gaming PC powered by AMD Ryzen Z1 architecture. Featuring a 7-inch display and customizable RGB controls, it offers an exceptional gaming experience on the go.',
+    'includes': <String>[
+      "Asus ROG Ally Handheld",
+      "Carrying Case",
+      "Charger",
+    ],
+    'price': 699.99,
+    'disk size': <String>['512GB', '512GB', '1TB'],
+    'imgUrl': 'assets/images/asus_rog_ally.webp',
   },
 ];
