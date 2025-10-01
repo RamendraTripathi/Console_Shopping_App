@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/pages/cart_page.dart';
-import 'package:shop_app_flutter/pages/shop_page.dart';
+import 'package:shop_app_flutter/pages/main_Pages/cart_page.dart';
+import 'package:shop_app_flutter/pages/main_Pages/orders_page.dart';
+import 'package:shop_app_flutter/pages/main_Pages/shop_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,8 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentPage = 0;
-  List<Widget> pages = [ShopPage(), CartPage()];
+  int currentPage = 1;
+  List<Widget> pages = [
+    OrdersPage(),
+    ShopPage(),
+    CartPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +27,23 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 30,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         selectedIconTheme: IconThemeData(
           color: const Color.fromARGB(255, 147, 183, 236),
         ),
         currentIndex: currentPage,
         items: const [
           BottomNavigationBarItem(
-            label: '',
+            label: 'You',
+            icon: Icon(Icons.person),
+          ),
+          BottomNavigationBarItem(
+            label: 'Shop',
             icon: Icon(Icons.shopping_bag),
           ),
           BottomNavigationBarItem(
-            label: '',
+            label: 'Cart',
             icon: Icon(Icons.shopping_cart),
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/pages/product_details_page.dart';
+import 'package:shop_app_flutter/pages/child_pages/product_details_page.dart';
 
 class ProductCard extends StatefulWidget {
   final Map<String, dynamic> product;
@@ -105,6 +105,13 @@ class _ProductCardState extends State<ProductCard> {
                                   widget.productSize[i],
                                 ),
                                 side: BorderSide.none,
+                                selectedColor:
+                                    const Color.fromARGB(
+                                      255,
+                                      252,
+                                      224,
+                                      179,
+                                    ),
                                 backgroundColor:
                                     const Color.fromARGB(
                                       255,
@@ -144,9 +151,9 @@ class _ProductCardState extends State<ProductCard> {
                         WidgetStateProperty.all(
                           const Color.fromARGB(
                             255,
-                            238,
-                            240,
-                            243,
+                            252,
+                            224,
+                            179,
                           ),
                         ),
                   ),

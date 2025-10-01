@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/pages/product_details_page.dart';
+import 'package:shop_app_flutter/pages/child_pages/product_details_page.dart';
 
 class CartCard extends StatefulWidget {
   final Map<String, dynamic> product;
@@ -50,6 +50,37 @@ class _ProductCardState extends State<CartCard> {
           padding: const EdgeInsets.all(15.0),
           child: Row(
             children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => ProductDetailsPage(
+                            productName: widget.productName,
+                            productPrice:
+                                widget.productPrice,
+                            productSize: widget.productSize,
+                            productDescription:
+                                widget.productDescription,
+                            imageURL: widget.imageURL,
+                            backgroundColorIndex:
+                                widget.backgroundColorIndex,
+                          ),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    right: 18.0,
+                  ),
+                  child: Image(
+                    image: AssetImage(widget.imageURL),
+                    height: 145,
+                    width: 135,
+                  ),
+                ),
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment:
@@ -92,7 +123,7 @@ class _ProductCardState extends State<CartCard> {
                           borderRadius:
                               BorderRadius.circular(16),
                         ),
-                        margin: EdgeInsets.only(right: 60),
+                        margin: EdgeInsets.only(right: 10),
                         child: Row(
                           mainAxisAlignment:
                               MainAxisAlignment
@@ -130,44 +161,22 @@ class _ProductCardState extends State<CartCard> {
                                   }
                                 });
                               },
-                              icon: Icon(Icons.remove),
+                              icon:
+                                  widget.productQuantity !=
+                                          1
+                                      ? Icon(Icons.remove)
+                                      : Icon(
+                                        Icons.delete,
+                                        color:
+                                            Colors
+                                                .redAccent,
+                                      ),
                             ),
                           ],
                         ),
                       ),
                     ),
                   ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => ProductDetailsPage(
-                            productName: widget.productName,
-                            productPrice:
-                                widget.productPrice,
-                            productSize: widget.productSize,
-                            productDescription:
-                                widget.productDescription,
-                            imageURL: widget.imageURL,
-                            backgroundColorIndex:
-                                widget.backgroundColorIndex,
-                          ),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 18.0,
-                  ),
-                  child: Image(
-                    image: AssetImage(widget.imageURL),
-                    height: 145,
-                    width: 135,
-                  ),
                 ),
               ),
             ],

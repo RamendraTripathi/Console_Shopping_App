@@ -210,3 +210,19 @@ final List<Map<String, dynamic>> cart = [
     'imgUrl': 'assets/images/asus_rog_ally.webp',
   },
 ];
+final List<Map<String, dynamic>> order = [
+  // {
+  //   'id': '0',
+  //   'company': 'Microsoft',
+  //   'title': 'Xbox Series X Carbon Black',
+  //   'description':
+  //       'The Xbox Series X in Carbon Black delivers ultimate gaming performance with smooth 4K visuals and ultra-fast load times. Its striking black design exudes sophistication, making it a perfect addition to your gaming collection.',
+  //   'includes': [
+  //     "Xbox Series X – 1TB Carbon Black",
+  //     "Xbox Wireless Controller – Carbon Black",
+  //   ],
+  //   'price': 599.99,
+  //   'disk size': ['1TB', '1TB', '2TB'],
+  //   'imgUrl': 'assets/images/carbon_black.png',
+  // },
+];

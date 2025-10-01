@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter/cards/cart_card.dart';
-import 'package:shop_app_flutter/cards/product_card.dart';
-import 'package:shop_app_flutter/Dummy Data/global_variables.dart';
+import 'package:shop_app_flutter/dummy_data/global_variables.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -39,6 +38,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: Text('Cart')),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -75,9 +75,9 @@ class _CartPageState extends State<CartPage> {
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(
                           255,
-                          248,
-                          241,
-                          140,
+                          252,
+                          224,
+                          179,
                         ),
 
                         borderRadius: BorderRadius.circular(

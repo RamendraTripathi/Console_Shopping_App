@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/Dummy%20Data/global_variables.dart';
-import '../../cards/product_card.dart';
+import 'package:shop_app_flutter/dummy_data/global_variables.dart';
+import '../../../cards/product_card.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -76,7 +76,7 @@ class _ShopPageState extends State<ShopPage> {
             Row(
               children: [
                 Flexible(
-                  flex: 7,
+                  flex: 6,
                   child: SizedBox(
                     height: 80,
                     child: ListView.builder(
@@ -147,7 +147,7 @@ class _ShopPageState extends State<ShopPage> {
                   flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      right: 12.0,
+                      right: 10.0,
                     ),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -161,49 +161,68 @@ class _ShopPageState extends State<ShopPage> {
                           242,
                         ),
                       ),
-
-                      child: PopupMenuButton<int>(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(10),
-                        ),
-                        color: const Color.fromARGB(
-                          255,
-                          216,
-                          253,
-                          242,
-                        ),
-                        icon: Icon(Icons.grid_view_rounded),
-                        onSelected: (value) {
-                          setState(() {
-                            _column = value;
-                          });
+                      child: IconButton(
+                        onPressed: () {
+                          if (_column == 1) {
+                            setState(() {
+                              _column = 2;
+                            });
+                          } else {
+                            setState(() {
+                              _column = 1;
+                            });
+                          }
                         },
-                        itemBuilder:
-                            (context) => [
-                              PopupMenuItem(
-                                value: 1,
-                                child: Text(
-                                  'List View',
-                                  style: TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold,
-                                  ),
+                        icon:
+                            _column == 1
+                                ? Icon(Icons.menu)
+                                : Icon(
+                                  Icons.grid_view_rounded,
                                 ),
-                              ),
-                              PopupMenuItem(
-                                value: 2,
-                                child: Text(
-                                  'Grid View',
-                                  style: TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
                       ),
+
+                      // PopupMenuButton<int>(
+                      //   elevation: 10,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius:
+                      //         BorderRadius.circular(10),
+                      //   ),
+                      //   color: const Color.fromARGB(
+                      //     255,
+                      //     216,
+                      //     253,
+                      //     242,
+                      //   ),
+                      //   icon: Icon(Icons.grid_view_rounded),
+                      //   onSelected: (value) {
+                      //     setState(() {
+                      //       _column = value;
+                      //     });
+                      //   },
+                      //   itemBuilder:
+                      //       (context) => [
+                      //         PopupMenuItem(
+                      //           value: 1,
+                      //           child: Text(
+                      //             'List View',
+                      //             style: TextStyle(
+                      //               fontWeight:
+                      //                   FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         PopupMenuItem(
+                      //           value: 2,
+                      //           child: Text(
+                      //             'Grid View',
+                      //             style: TextStyle(
+                      //               fontWeight:
+                      //                   FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      // ),
                     ),
                   ),
                 ),

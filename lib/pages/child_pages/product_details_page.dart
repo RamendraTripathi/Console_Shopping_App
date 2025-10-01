@@ -96,6 +96,13 @@ class _ProductDetailsPageState
                               widget.productSize[i],
                             ),
                             side: BorderSide.none,
+                            selectedColor:
+                                const Color.fromARGB(
+                                  255,
+                                  252,
+                                  224,
+                                  179,
+                                ),
                             backgroundColor:
                                 const Color.fromARGB(
                                   255,
@@ -137,11 +144,11 @@ class _ProductDetailsPageState
                             ),
                         backgroundColor:
                             WidgetStateProperty.all(
-                              const Color.fromRGBO(
-                                216,
-                                240,
-                                253,
-                                1,
+                              const Color.fromARGB(
+                                255,
+                                252,
+                                224,
+                                179,
                               ),
                             ),
                       ),
