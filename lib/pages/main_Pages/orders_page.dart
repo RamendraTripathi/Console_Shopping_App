@@ -81,6 +81,7 @@ class _OrdersPageState extends State<OrdersPage> {
                     subtitle: Text(
                       'Size: ${cartItem['disk size'].toString()}',
                     ),
+                    trailing: Text('Status: Dispatching'),
                   );
                 },
               ),

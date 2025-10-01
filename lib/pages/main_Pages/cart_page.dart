@@ -178,38 +178,38 @@ class _CartPageState extends State<CartPage> {
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(
                         255,
-                        248,
-                        241,
-                        140,
+                        252,
+                        224,
+                        179,
                       ),
                       borderRadius: BorderRadius.circular(
-                        8,
+                        16,
                       ),
                     ),
                     child: Row(
                       mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          MainAxisAlignment.center,
                       children: [
                         Text(
-                          'All Items Bought!',
+                          'Items Ordered!',
                           style:
                               Theme.of(
                                 context,
                               ).textTheme.titleSmall,
                         ),
 
-                        Row(
-                          children: [
-                            Text(
-                              '...',
-                              style:
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.titleSmall,
-                            ),
-                            Icon(Icons.delivery_dining),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       '...',
+                        //       style:
+                        //           Theme.of(
+                        //             context,
+                        //           ).textTheme.titleSmall,
+                        //     ),
+                        //     Icon(Icons.delivery_dining),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
