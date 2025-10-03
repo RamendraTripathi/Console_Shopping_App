@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
 import 'package:shop_app_flutter/pages/child_pages/product_details_page.dart';
 
 class ProductCard extends StatefulWidget {
@@ -30,6 +32,34 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   int selectedSize = 0;
 
+  void onTap() {
+    print(widget.product['disk size'][selectedSize]);
+    Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).cart.any(
+          (item) => item['id'] == widget.product['id'],
+        )
+        ? Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).incrementCount(widget.product)
+        : Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).addProduct({
+          'id': widget.product['id'],
+          'company': widget.product['company'],
+          'title': widget.product['title'],
+          'description': widget.product['description'],
+          'price': widget.product['price'],
+          'disk size':
+              widget.product['disk size'][selectedSize],
+          'imgUrl': widget.product['imgUrl'],
+          'count': 1,
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,12 +71,7 @@ class _ProductCardState extends State<ProductCard> {
             MaterialPageRoute(
               builder:
                   (context) => ProductDetailsPage(
-                    productName: widget.productName,
-                    productPrice: widget.productPrice,
-                    productSize: widget.productSize,
-                    productDescription:
-                        widget.productDescription,
-                    imageURL: widget.imageURL,
+                    product: widget.product,
                     backgroundColorIndex:
                         widget.backgroundColorIndex,
                   ),
@@ -158,7 +183,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                   ),
                   onPressed: () {
-                    print('Item added to cart!');
+                    onTap();
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(0),

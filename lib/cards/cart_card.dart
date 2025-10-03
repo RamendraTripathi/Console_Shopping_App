@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app_flutter/pages/child_pages/product_details_page.dart';
 
 class CartCard extends StatefulWidget {
   final Map<String, dynamic> product;
   final String productName;
-  final List<String> productSize;
+  final String productSize;
   final double productPrice;
   final String productDescription;
   final String imageURL;
   final bool backgroundColorIndex;
-  int productQuantity = 1;
 
   CartCard({
     super.key,
     required this.product,
     required this.backgroundColorIndex,
   }) : productName = product['title'] as String,
-       productSize = product['disk size'] as List<String>,
+       productSize = product['disk size'] as String,
        productPrice = product['price'] as double,
        productDescription =
            product['description'] as String,
@@ -28,6 +29,20 @@ class CartCard extends StatefulWidget {
 
 class _ProductCardState extends State<CartCard> {
   int selectedSize = 0;
+
+  void removeItem() {
+    if (Provider.of<CartProvider>(
+      context,
+      listen: false,
+    ).cart.any(
+      (item) => item['id'] == widget.product['id'],
+    )) {
+      Provider.of<CartProvider>(
+        context,
+        listen: false,
+      ).removeProduct(widget.product);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +72,7 @@ class _ProductCardState extends State<CartCard> {
                     MaterialPageRoute(
                       builder:
                           (context) => ProductDetailsPage(
-                            productName: widget.productName,
-                            productPrice:
-                                widget.productPrice,
-                            productSize: widget.productSize,
-                            productDescription:
-                                widget.productDescription,
-                            imageURL: widget.imageURL,
+                            product: widget.product,
                             backgroundColorIndex:
                                 widget.backgroundColorIndex,
                           ),
@@ -102,7 +111,7 @@ class _ProductCardState extends State<CartCard> {
                       ),
                     ),
                     Text(
-                      '\$ ${(widget.productPrice * widget.productQuantity).toStringAsFixed(2)}',
+                      '\$ ${(widget.productPrice * widget.product['count']).toStringAsFixed(2)}',
                       style:
                           Theme.of(
                             context,
@@ -131,19 +140,21 @@ class _ProductCardState extends State<CartCard> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                setState(() {
-                                  if (widget
-                                          .productQuantity <
-                                      10) {
-                                    widget.productQuantity +=
-                                        1;
-                                  }
-                                });
+                                if (widget
+                                        .product['count'] <
+                                    10) {
+                                  Provider.of<CartProvider>(
+                                    context,
+                                    listen: false,
+                                  ).incrementCount(
+                                    widget.product,
+                                  );
+                                }
                               },
                               icon: Icon(Icons.add),
                             ),
                             Text(
-                              widget.productQuantity
+                              widget.product['count']
                                   .toString(),
                               style:
                                   Theme.of(
@@ -152,17 +163,28 @@ class _ProductCardState extends State<CartCard> {
                             ),
                             IconButton(
                               onPressed: () {
-                                setState(() {
-                                  if (widget
-                                          .productQuantity >
-                                      1) {
-                                    widget.productQuantity -=
-                                        1;
-                                  }
-                                });
+                                if (widget
+                                        .product['count'] >
+                                    1) {
+                                  Provider.of<CartProvider>(
+                                    context,
+                                    listen: false,
+                                  ).decrementCount(
+                                    widget.product,
+                                  );
+                                } else if (widget
+                                        .product['count'] ==
+                                    1) {
+                                  Provider.of<CartProvider>(
+                                    context,
+                                    listen: false,
+                                  ).removeProduct(
+                                    widget.product,
+                                  );
+                                }
                               },
                               icon:
-                                  widget.productQuantity !=
+                                  widget.product['count'] !=
                                           1
                                       ? Icon(Icons.remove)
                                       : Icon(

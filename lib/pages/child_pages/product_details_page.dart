@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
+  final Map<String, dynamic> product;
   final String productName;
   final List<String> productSize;
   final double productPrice;
   final String productDescription;
   final String imageURL;
   final bool backgroundColorIndex;
-  const ProductDetailsPage({
+
+  ProductDetailsPage({
     super.key,
-    required this.productName,
-    required this.productSize,
-    required this.productPrice,
-    required this.productDescription,
-    required this.imageURL,
+    required this.product,
     required this.backgroundColorIndex,
-  });
+  }) : productName = product['title'] as String,
+       productSize = product['disk size'] as List<String>,
+       productPrice = product['price'] as double,
+       productDescription =
+           product['description'] as String,
+       imageURL = product['imgUrl'] as String;
 
   @override
   State<ProductDetailsPage> createState() =>
@@ -25,6 +30,34 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState
     extends State<ProductDetailsPage> {
   int selectedSize = 0;
+
+  void onTap() {
+    Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).cart.any(
+          (item) => item['id'] == widget.product['id'],
+        )
+        ? Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).incrementCount(widget.product)
+        : Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).addProduct({
+          'id': widget.product['id'],
+          'company': widget.product['company'],
+          'title': widget.product['title'],
+          'description': widget.product['description'],
+          'price': widget.product['price'],
+          'disk size':
+              widget.product['disk size'][selectedSize],
+          'imgUrl': widget.product['imgUrl'],
+          'count': 1,
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +186,7 @@ class _ProductDetailsPageState
                             ),
                       ),
                       onPressed: () {
-                        print('Item added to cart');
+                        onTap();
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(0),
