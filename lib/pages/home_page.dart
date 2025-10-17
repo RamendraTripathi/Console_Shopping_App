@@ -3,7 +3,7 @@ import 'package:shop_app_flutter/pages/main_Pages/cart_page.dart';
 import 'package:shop_app_flutter/pages/main_Pages/orders_page.dart';
 import 'package:shop_app_flutter/pages/main_Pages/shop_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
+import 'package:shop_app_flutter/providers/cart_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               )
               : cartSize == 1
               ? BottomNavigationBarItem(
-                label: ('$cartSize.to Item'),
+                label: ('$cartSize Item'),
                 icon: Icon(Icons.shopping_cart),
               )
               : BottomNavigationBarItem(

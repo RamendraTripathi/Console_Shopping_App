@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
+import 'package:shop_app_flutter/providers/cart_provider.dart';
 import 'package:shop_app_flutter/pages/child_pages/product_details_page.dart';
 
 class ProductCard extends StatefulWidget {
@@ -62,6 +62,14 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    double parentDimension = 200;
+
+    switch (widget.columnCount) {
+      case 1:
+        parentDimension = 375;
+      case > 2:
+        parentDimension = 275;
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: GestureDetector(
@@ -105,66 +113,65 @@ class _ProductCardState extends State<ProductCard> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                widget.columnCount == 1
-                    ? const SizedBox(height: 15)
-                    : SizedBox(),
-                Image(
-                  image: AssetImage(widget.imageURL),
-                  height:
-                      widget.columnCount == 1 ? 275 : 150,
+                ConstrainedBox(
+                  constraints: BoxConstraints.expand(
+                    height: parentDimension,
+                    width: parentDimension,
+                  ),
+                  child: Image(
+                    image: AssetImage(widget.imageURL),
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
-                widget.columnCount == 1
-                    ? Column(
+                Column(
+                  children: [
+                    Wrap(
+                      spacing: 10,
                       children: [
-                        const SizedBox(height: 15),
-                        Wrap(
-                          spacing: 10,
-                          children: [
-                            for (
-                              int i = 0;
-                              i < widget.productSize.length;
-                              i++
-                            )
-                              ChoiceChip(
-                                label: Text(
-                                  widget.productSize[i],
+                        for (
+                          int i = 0;
+                          i < widget.productSize.length;
+                          i++
+                        )
+                          ChoiceChip(
+                            label: Text(
+                              widget.productSize[i],
+                            ),
+                            side: BorderSide.none,
+                            selectedColor:
+                                const Color.fromARGB(
+                                  255,
+                                  252,
+                                  224,
+                                  179,
                                 ),
-                                side: BorderSide.none,
-                                selectedColor:
-                                    const Color.fromARGB(
-                                      255,
-                                      252,
-                                      224,
-                                      179,
-                                    ),
-                                backgroundColor:
-                                    const Color.fromARGB(
-                                      255,
-                                      238,
-                                      240,
-                                      243,
-                                    ),
-                                selected: selectedSize == i,
-                                onSelected: (selected) {
-                                  setState(() {
-                                    selectedSize = i;
-                                  });
-                                },
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          '\$ ${widget.productPrice}',
-                          style:
-                              Theme.of(
-                                context,
-                              ).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 15),
+                            backgroundColor:
+                                const Color.fromARGB(
+                                  255,
+                                  238,
+                                  240,
+                                  243,
+                                ),
+                            selected: selectedSize == i,
+                            onSelected: (selected) {
+                              setState(() {
+                                selectedSize = i;
+                              });
+                            },
+                          ),
                       ],
-                    )
-                    : Padding(padding: EdgeInsets.all(0)),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      '\$ ${widget.productPrice}',
+                      style:
+                          Theme.of(
+                            context,
+                          ).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 15),
+                  ],
+                ),
                 TextButton(
                   style: ButtonStyle(
                     maximumSize: WidgetStateProperty.all(
@@ -184,6 +191,13 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   onPressed: () {
                     onTap();
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(
+                      const SnackBar(
+                        content: Text('Item added to cart'),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(0),

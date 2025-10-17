@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/cards/cart_card.dart';
-import 'package:shop_app_flutter/dummy_data/cart_provider.dart';
+import 'package:shop_app_flutter/widgets/cart_card.dart';
+import 'package:shop_app_flutter/providers/cart_provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -209,44 +209,68 @@ class _CartPageState extends State<CartPage> {
                               const EdgeInsets.symmetric(
                                 horizontal: 100.0,
                               ),
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(
-                                255,
-                                252,
-                                224,
-                                179,
-                              ),
-                              borderRadius:
-                                  BorderRadius.circular(16),
-                            ),
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Items Ordered!',
-                                  style:
-                                      Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(
+                                        255,
+                                        252,
+                                        224,
+                                        179,
+                                      ),
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                        16,
+                                      ),
                                 ),
-
-                                // Row(
-                                //   children: [
-                                //     Text(
-                                //       '...',
-                                //       style:
-                                //           Theme.of(
-                                //             context,
-                                //           ).textTheme.titleSmall,
-                                //     ),
-                                //     Icon(Icons.delivery_dining),
-                                //   ],
-                                // ),
-                              ],
-                            ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                  children: [
+                                    Text(
+                                      'Items Ordered!',
+                                      style:
+                                          Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.all(
+                                      18.0,
+                                    ),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStateProperty.all(
+                                          const Color.fromARGB(
+                                            255,
+                                            252,
+                                            224,
+                                            179,
+                                          ),
+                                        ),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
+                                  child: Text(
+                                    'Ok',
+                                    style:
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       )
